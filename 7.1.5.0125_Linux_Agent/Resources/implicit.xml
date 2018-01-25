@@ -1,0 +1,419 @@
+<!-- implicit filter spec file -->
+<!-- $Revision: 7.1.3 $ -->
+<implicit>
+ <global>
+  <!-- describes a file type with extension. Extension is tried twice:
+       "normal" way, rightmost '.' and then leftmost dot
+    -->
+       
+  <type ext="so" op="READ,OPEN">
+   <!-- content inspector spec, only looks into first 128 bytes of the file 
+     ot - operation type, only one (BINCMP) for now
+     offt - offset into file
+     data - hex data to match. offset + data size shoul be < 128
+     
+     if this check matches then <yes> is executed, if no <yes>, check is 
+        successfull.
+     if it does not, <no> is tried, if no <no>, check fails
+     -->
+   <cmp ot="BINCMP" offt="0" data="7f454c46">
+      <yes>
+         <cmp ot="BINCMP" offt="16" data="0300">
+         </cmp>
+      </yes>
+   </cmp>
+  </type>
+  <type ext="o" op="READ,OPEN">
+   <cmp ot="BINCMP" offt="0" data="7f454c46">
+   </cmp>
+  </type>
+  <type ext="a">
+   <cmp ot="BINCMP" offt="0" data="213c617263683e">
+   </cmp>
+   
+  </type>
+  <type ext="tdb">
+      <cmp ot="BINCMP" offt="0" data="5455422066696c"></cmp>
+  </type>
+  <type ext="la"></type>
+  <type ext="lock"></type>
+  <type ext="ICEauthority"></type>
+  <type ext="Xauthority"></type>
+  <type ext="class"></type>
+  <type ext="pyc"></type>
+  <type ext="recently-used"></type>
+  <type ext="xbel">
+    <cmp ot="BINCMP" offt="0" data="3c3f786d">
+      <yes><cmp ot="BINCMP" offt="39" data="3c7862"/></yes>
+    </cmp>
+  </type>
+  <type ext="cache-2"></type>
+  <type ext="fonts"></type>
+  <type ext="cache-1">
+   <cmp ot="BINCMP" offt="0" data="22">
+   </cmp>
+  </type>
+  <type ext="afm">
+   <cmp ot="BINCMP" offt="0" data="53746174466f6e">
+   </cmp>
+  </type>
+  <type ext="pfa">
+   <cmp ot="BINCMP" offt="0" data="252150532d41646f6265466f">
+   </cmp>
+  </type>
+  <type ext="ttf">
+   <cmp ot="BINCMP" offt="0" data="00010000">
+   </cmp>
+  </type>
+  <type ext="pfb"></type>
+  <type ext="pcf"></type>
+  <type ext="desktop"></type>
+  <type ext="pulse-cookie"></type>
+
+  <!-- exact file match. dir="1" means to ignore all children of the
+       specified directory -->
+  <file path="/bin" dir="1" op="READ,OPEN"/>
+  <file path="/boot/" dir="1"  op="READ,OPEN"/>
+  <file path="/dev/" dir="1"/>
+  <file path="/etc/" dir="1" op="READ,OPEN"/>
+  <file path="/lib" dir="1" op="READ,OPEN"/>
+  <file path="/lib64" dir="1" op="READ,OPEN"/>
+  <file path="/opt/" dir="1" op="READ,OPEN"/>
+  <file path="/proc/" dir="1"/>
+  <file path="/run/gdm" dir="1"/>
+  <file path="/run/resolvconf" dir="1"/>
+  <file path="/run/systemd/" dir="1"/>
+  <file path="/run/udisks2" dir="1"/>
+  <file path="/run/mount/" dir="1"/>
+  <file path="/sbin" dir="1" op="READ,OPEN"/>
+  <file path="/selinux/" dir="1"/>
+  <file path="/srv/" dir="1"/>
+  <file path="/sys/" dir="1"/>
+  <file path="/tmp/" dir="1"/>
+  <file path="/usr/" dir="1" op="READ,OPEN"/>
+  <file path="/var" dir="1" op="READ,OPEN"/>
+  <file path="/var/lib/PackageKit" dir="1" />
+  <file path="/var/cache/yum" dir="1" />
+  <file path="/run/udev/data" dir="1" />
+
+  <substr str="/.eclipse/"/>
+  <substr str="/.gnome/"/>
+  <substr str="/.pulse/"/>
+  <substr str="/.gnome2/"/>
+  <substr str="/.gnome2_private/"/>
+  <substr str="/.config/"/>
+  <substr str="/.elinks/"/>
+  <substr str="/.emacs.d/"/>
+  <substr str="/.gaim/"/>
+  <substr str="/.gconf/"/>
+  <substr str="/.gconfd/"/>
+  <substr str="/.gftp/"/>
+  <substr str="/.kde/"/>
+  <substr str="/.lftp/"/>
+  <substr str="/.licq/"/>
+  <substr str="/.mc/"/>
+  <substr str="/.mozilla/"/>
+  <substr str="/.thunderbird/"/>
+  <substr str="/.evolution/"/>
+  <substr str="/.evolution-"/>
+  <substr str="/.nedit/"/>
+  <substr str="/.qt/"/>
+  <substr str="/.ssh/"/>
+  <substr str="/.thumbnails/"/>
+  <substr str="/.ethereal/"/>
+  <substr str="/.eggcups/"/>
+  <substr str="/.mcop/"/>
+  <substr str="/.metacity/"/>
+  <substr str="/.rhn-applet/"/>
+  <substr str="/.gpilotd/"/>
+  <substr str="/dconf/user"/>
+  <substr str="/tmp/kde-"/>
+  <substr str="/tmp/ksocket-"/>
+  <substr str="/tmp/.exchange-"/>
+  <substr str="/tmp/orbit-"/>
+  <substr str="/tmp/gconfd-"/>
+  <substr str="/tmp/moz"/>
+  <substr str="/tmp/.gdm"/>
+  <substr str="/tmp/."/>
+  <substr str=".DCOPserver"/>
+  <substr str="/.fonts/"/>
+  <substr str="/.fontconfig/"/>
+  <substr str="/.gimp-2.0/"/>
+  <substr str="/.mime.types"/>
+  <substr str="/.local/share/"/>
+  <substr str="/eclipse/plugins/"/>
+  <substr str="/eclipse/configuration/"/>
+  <substr str="/eclipse/features/"/>
+  <substr str="/.metadata/"/>
+  <substr str="/.xauth"/>
+  <substr str="/.dbus/"/>
+  <substr str="/.dmrc"/>
+  <substr str="/.gtk-bookmarks"/>
+  <substr str="/.xsession-errors"/>
+  <substr str="/run/shm/.org.chromium"/>
+  <substr str="/run/shm/.com.google.Chrome."/>
+  <substr str="/.cache/chromium/"/>
+  <substr str="/.cache/mozilla/"/>
+  <substr str="/.cache/imsettings/"/>
+  <substr str="/.cache/tracker/"/>
+  <substr str="/.cache/fontconfig/"/>
+  <substr str="/.cache/wallpaper/"/>
+  <substr str="/.cache/event-sound-cache.tdb."/>
+  <substr str="/.cache/gedit/gedit-metadata.xml"/>
+  <substr str="/tmp/etilqs_"/>
+  <substr str="/tmp/.com.google.Chrome."/>
+  <substr str="/tmp/.org.chromium.Chromium"/>
+  <substr str="recently-used.xbel"/>
+  
+ </global>
+ <!-- per application filters.
+      only <type> is currently supported on application level 
+      
+     <app path="path" parent="parent">
+     either path or parent can be omitted, but not both
+   -->
+      
+ <app path="/usr/bin/vi">
+   <type ext="viminfo"></type>
+   <type ext="swp"></type>
+   <type ext="swpx"></type>
+   <type ext="swx"></type>
+   <type ext="swo"></type>
+   <type ext="swn"></type>
+ </app>
+
+ <app path="/usr/bin/vim">
+   <type ext="viminfo"></type>
+   <type ext="swp"></type>
+   <type ext="swpx"></type>
+   <type ext="swx"></type>
+   <type ext="swo"></type>
+   <type ext="swn"></type>
+ </app>
+
+ <app path="/usr/bin/vim.basic">
+   <type ext="viminfo"></type>
+   <type ext="swp"></type>
+   <type ext="swpx"></type>
+   <type ext="swx"></type>
+   <type ext="swo"></type>
+   <type ext="swn"></type>
+ </app>
+
+ <app path="/usr/bin/vim.tiny">
+   <type ext="viminfo"></type>
+   <type ext="swp"></type>
+   <type ext="swpx"></type>
+   <type ext="swx"></type>
+   <type ext="swo"></type>
+   <type ext="swn"></type>
+ </app>
+
+ <app path="/bin/vim">
+   <type ext="viminfo"></type>
+   <type ext="swp"></type>
+   <type ext="swpx"></type>
+   <type ext="swx"></type>
+   <type ext="swo"></type>
+   <type ext="swn"></type>
+ </app>
+
+ <app path="/bin/vi">
+   <type ext="viminfo"></type>
+   <type ext="swp"></type>
+   <type ext="swpx"></type>
+   <type ext="swx"></type>
+   <type ext="swo"></type>
+   <type ext="swn"></type>
+ </app>
+
+ <app path="/bin/bash">
+   <type ext="bash_history"></type>
+   <type ext="bash_logout"></type>
+   <type ext="bash_profile"></type>
+   <type ext="bashrc"></type>
+ </app>
+
+ <app path="/usr/bin/kdeinit">
+   <substr str="/usr/lib/qt-"/>
+   <substr str="/usr/lib64/qt-"/>
+   <substr str="/.kde/"/>
+   <substr str="/.qt/"/>
+   <substr str="/var/tmp/kdecache"/>
+ </app>
+
+ <app path="/usr/bin/kdeinit4">
+   <substr str="/usr/lib/qt4"/>
+   <substr str="/usr/lib64/qt4"/>
+   <substr str="/.kde/"/>
+   <substr str="/var/tmp/kdecache"/>
+ </app>
+
+ <!-- WS4U4 -->
+ <app path="/usr/lib/ooo-1.1/program/soffice.bin">
+   <substr str="/.rhopenoffice"/>
+   <substr str="/tmp/sv"/>
+   <substr str="/.sversionrc"/>
+   <type ext="dic"></type>
+   <type ext="bau"></type>
+ </app>
+
+ <!-- FC4 -->
+ <app path="/usr/lib/openoffice.org1.9.104/program/soffice.bin">
+   <substr str="/.openoffice.org"/>
+   <substr str="/tmp/sv"/>
+   <substr str="/.sversionrc"/>
+   <type ext="dic"></type>
+   <type ext="bau"></type>
+   <type ext="xcu"></type>
+   <type ext="xcu_tmp"></type>
+ </app>
+
+ <app path="/usr/lib/openoffice.org2.0/program/swriter.bin">
+   <substr str="/.openoffice.org"/>
+   <substr str="/.openoffice.org2"/>
+   <substr str="/tmp/sv"/>
+   <substr str="/.sversionrc"/>
+   <type ext="xcu"></type>
+   <type ext="xcu_tmp"></type>
+ </app>
+
+<!-- CentOS 5 (openoffice 2.3.0)-->
+ <app path="/usr/lib/openoffice.org/program/swriter.bin">
+   <substr str="/.openoffice.org"/>
+   <substr str="/.openoffice.org2"/>
+   <substr str="/tmp/sv"/>
+   <substr str="/.sversionrc"/>
+   <type ext="xcu"></type>
+   <type ext="xcu_tmp"></type>
+ </app>
+
+ <app path="/usr/lib64/openoffice.org/program/swriter.bin">
+   <substr str="/.openoffice.org"/>
+   <substr str="/.openoffice.org2"/>
+   <substr str="/tmp/sv"/>
+   <substr str="/.sversionrc"/>
+   <type ext="xcu"></type>
+   <type ext="xcu_tmp"></type>
+ </app>
+
+ <app path="/usr/lib/openoffice.org/program/scalc.bin">
+   <substr str="/.openoffice.org"/>
+   <substr str="/.openoffice.org2"/>
+   <substr str="/tmp/sv"/>
+   <substr str="/.sversionrc"/>
+   <type ext="xcu"></type>
+   <type ext="xcu_tmp"></type>
+ </app>
+
+ <app path="/usr/lib64/openoffice.org/program/scalc.bin">
+   <substr str="/.openoffice.org"/>
+   <substr str="/.openoffice.org2"/>
+   <substr str="/tmp/sv"/>
+   <substr str="/.sversionrc"/>
+   <type ext="xcu"></type>
+   <type ext="xcu_tmp"></type>
+ </app>
+
+ <app path="/opt/openoffice.org2.3/program/soffice.bin">
+   <substr str="/opt/openoffice.org2.3"/>
+   <substr str="/.openoffice.org"/>
+   <substr str="/.openoffice.org2"/>
+   <substr str="/tmp/sv"/>
+   <substr str="/.sversionrc"/>
+   <type ext="dic"></type>
+   <type ext="bau"></type>
+   <type ext="xcu"></type>
+   <type ext="xcu_tmp"></type>
+ </app>
+
+ <!-- F10 -->
+ <app path="/usr/lib/openoffice.org3/program/swriter.bin">
+   <substr str="/.openoffice.org"/>
+   <substr str="/tmp/sv"/>
+   <type ext="dic"></type>
+   <type ext="bau"></type>
+   <type ext="xcu"></type>
+   <type ext="xcu_tmp"></type>
+ </app>
+
+ <app path="/usr/lib64/openoffice.org3/program/swriter.bin">
+   <substr str="/.openoffice.org"/>
+   <substr str="/tmp/sv"/>
+   <type ext="dic"></type>
+   <type ext="bau"></type>
+   <type ext="xcu"></type>
+   <type ext="xcu_tmp"></type>
+ </app>
+
+ <app path="/usr/lib/libreoffice/program/soffice.bin">
+   <substr str="/.config/libreoffice/"/>
+   <substr str="/.~lock."/>
+   <substr str="/.execooo"/>
+   <type ext="dic"></type>
+   <type ext="bau"></type>
+ </app>
+
+ <app path="/usr/lib64/libreoffice/program/soffice.bin">
+   <substr str="/.config/libreoffice/"/>
+   <substr str="/.~lock."/>
+   <substr str="/.execooo"/>
+   <type ext="dic"></type>
+   <type ext="bau"></type>
+ </app>
+
+ <app path="/usr/bin/nautilus">
+  <substr str="/.nautilus/"/>
+ </app>
+
+ <app path="/usr/sbin/smbd">
+  <substr str="/var/cache/samba"/>
+  <substr str="/var/log"/>
+  <substr str="/etc/samba"/>
+ </app>
+
+ <app path="/usr/bin/smbclient">
+  <substr str="/var/cache/samba"/>
+ </app>
+
+ <app path="/usr/bin/evolution">
+  <substr str="/.local/share/evolution"/>
+ </app>
+
+ <app path="/usr/libexec/evolution-calendar-factory">
+  <substr str="/.cache/evolution/"/>
+ </app>
+
+ <app path="/usr/libexec/evolution-addressbook-factory">
+  <substr str="/.cache/evolution/"/>
+ </app>
+
+ <app path="/usr/bin/mc">
+  <substr str="/.local/share/mc/"/>
+ </app>
+
+ <app path="/usr/sbin/proftpd">
+  <substr str="/var/run/proftpd"/>
+  <substr str="/var/log/proftpd"/>
+  <substr str="/var/log/xferlog"/>
+ </app>
+
+ <app path="/usr/lib/vmware/bin/vmware-vmx">
+   <type ext="lck"></type>
+   <substr str="/run/vmware"/>
+ </app>
+
+ <app path="/usr/sbin/vmware-authd">
+   <type ext="lck"></type>
+   <substr str="/run/vmware"/>
+ </app>
+
+ <app path="/usr/sbin/NetworkManager">
+   <type ext="pid"></type>
+   <type ext="conf"></type>
+ </app>
+ <app path="/usr/sbin/gdm-binary">
+   <substr str="/var/gdm/"/>
+   <substr str="/var/log/gdm"/>
+ </app>
+</implicit>
